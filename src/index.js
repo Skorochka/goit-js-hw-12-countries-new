@@ -2,8 +2,9 @@ import { alert, notice, info, success, error } from '../node_modules/@pnotify/co
 import '@pnotify/core/dist/BrightTheme.css';
 import fetchCountries from './js/fetchCountries.js';
 import debounce from 'lodash.debounce';
-import refs from './js/refs.js'
-import templateCountryCard from './templates/templateCountryCard.hbs'
+import refs from './js/refs.js';
+import templateCountryCard from './templates/templateCountryCard.hbs';
+
 
 // debounce(fn, 500)
 

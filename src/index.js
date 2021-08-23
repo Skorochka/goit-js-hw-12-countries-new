@@ -8,15 +8,17 @@ import templateCountryCard from './templates/templateCountryCard.hbs';
 refs.input.addEventListener('input', debounce(onInputChanged, 1500))
 
 function onInputChanged(e) {
-    e.preventDefault()
     let searchQuery = e.target.value
     refs.conteiner.innerHTML = ''
+    e.target.value = ''
 
     fetchCountries(searchQuery).then(data => {
-        return amountOfCountries(data)
+            return amountOfCountries(data)
+        }
+        ).catch((arror) => {
+            return error(errorTryAgain)
+        })
     }
-    ).catch(arror => error(errorTryAgain))
-}
 
 
 const textError = { text: 'Too many matches found. Please enter a more specific query.' }

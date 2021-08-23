@@ -5,37 +5,22 @@ import debounce from 'lodash.debounce';
 import refs from './js/refs.js';
 import templateCountryCard from './templates/templateCountryCard.hbs';
 
-
-// debounce(fn, 500)
-
 refs.input.addEventListener('input', debounce(onInputChanged, 1500))
 
-
-
-
 function onInputChanged(e) {
+    e.preventDefault()
     let searchQuery = e.target.value
     refs.conteiner.innerHTML = ''
 
-    fetchCountries(searchQuery)
-
-
-    function fetchCountries(searchQuery) {
-    fetch(
-        `https://restcountries.eu/rest/v2/name/${searchQuery}`
-    ).then(r => r.json()).then(data => {
+    fetchCountries(searchQuery).then(data => {
         return amountOfCountries(data)
     }
     ).catch(arror => error(errorTryAgain))
 }
-}
-   
-
 
 
 const textError = { text: 'Too many matches found. Please enter a more specific query.' }
-const  errorTryAgain = { text: 'Too many matches found. Please enter a more specific query.' }
-
+const  errorTryAgain = { text: 'Try again' }
 
 
 function amountOfCountries(data) {
@@ -43,15 +28,11 @@ function amountOfCountries(data) {
         return error(textError)
     } else if (data.length < 10 && data.length > 1) {
         renderCollection(data)
-        
     } else {
         refs.conteiner.insertAdjacentHTML('beforeend', templateCountryCard(data))
     }
     
 }
-
-
-
 
 function createListCounties({name}) {
     const list = `
